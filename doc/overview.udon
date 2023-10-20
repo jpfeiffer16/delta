@@ -1,6 +1,38 @@
 ;>
+# marks
 
-The %delta app does %delta things; and very well I might add.
-What, you may ask, is %delta? Well, let me start by asking you a question.
-What do you want %delta to be? There's your answer. The world is your
-%delta.
+The `%delta` desk contains the following marks:
+
+- `update`
+- `action`
+
+These are very basic and
+are for `noun<->?(update action)` conversions.
+
+# types
+
+- `+$action` - used to update the state in the `%delta` agent: 
+```
+  $%  [%push target=@p value=@]
+      [%pop target=@p]
+  ==
+```
+- `+$update` - used to communicate updates to agents or ships that have subscribed:
+```
+  $%  [%init values=(list @)]
+      action
+  ==
+```
+
+# agents
+
+If you think of the agents on this desk in a "client-server" analogy, then:
+- `%delta` is the "server". You can `%push` to and `%pop` values from its state.
+  It will disseminate this state to subscribed `%delta-follower`s.
+- `%delta-follower` is the "client". You can use it to subscribe to a running `%delta`
+  agent. Updates to the state of the target `%delta` agent will be logged to the console.
+
+# tests
+
+Tests for the `%delta` desk are located in `/=delta=/tests`.
+Run them with `-test /=delta=/tests`.
