@@ -34,7 +34,6 @@
   ==
 
 ++  test-delta-poke-other-ship
-  =|  run=@ud
   :: push
   =^  move1  delta  (~(on-poke delta bowl) %delta-action !>([%push ~nec 10]))
   =^  move2  delta  (~(on-poke delta bowl) %delta-action !>([%push ~nec 20]))
@@ -66,7 +65,6 @@
   ==
 
 ++  test-delta-watch-success
-  =|  run=@ud
   =^  move1  delta  (~(on-poke delta bowl) %delta-action !>([%push ~zod 20]))
   =^  move2  delta  (~(on-watch delta bowl) /values)
   %+  expect-eq
