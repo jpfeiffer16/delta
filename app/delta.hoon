@@ -20,11 +20,15 @@
 ++  on-save   !>(state)
 ++  on-load
   |=  old=vase
-  ^-  (quip card _this)
-  `this(state !<(state-0 old))
+  ^-  [(list card) _this]
+  :-  ^-  (list card)
+      ~
+  %=  this
+    state  !<(state-0 old)
+  ==
 ++  on-poke
   |=  [=mark =vase]
-  ^-  (quip card _this)
+  ^-  [(list card) _this]
   ?>  ?=(%delta-action mark)
   =/  act  !<(action vase)
   ?-    -.act
@@ -33,33 +37,39 @@
       :_  this(values [value.act values])
       [%give %fact ~[/values] %delta-update !>(`update`act)]~
     ?>  =(our.bowl src.bowl)
-    :_  this
-    [%pass /pokes %agent [target.act %delta] %poke mark vase]~
+    :-  ^-  (list card)
+        :~  [%pass /pokes %agent [target.act %delta] %poke mark vase]
+        ==
+    this
   ::
       %pop
     ?:  =(our.bowl target.act)
       :_  this(values ?~(values ~ t.values))
       [%give %fact ~[/values] %delta-update !>(`update`act)]~
     ?>  =(our.bowl src.bowl)
-    :_  this
-    [%pass /pokes %agent [target.act %delta] %poke mark vase]~
+    :-  ^-  (list card)
+        :~  [%pass /pokes %agent [target.act %delta] %poke mark vase]
+        ==
+    this
   ==
 ::
 ++  on-peek
   |=  =path
   ^-  (unit (unit cage))
   ?+  path  (on-peek:default path)
-    [%x %values ~]  ``noun+!>(values)
+    [%x %values ~]  [~ ~ [%noun !>(values)]]
   ==
 ++  on-watch
   |=  =path
-  ^-  (quip card _this)
+  ~&  path
+  ^-  [(list card) _this]
   ?>  ?=([%values ~] path)
-  :_  this
-  [%give %fact ~ %delta-update !>(`update`[%init values])]~
+  :-  ^-  (list card)
+      :~  [%give %fact ~ %delta-update !>(`update`[%init values])]
+      ==
+  this
 ++  on-arvo   on-arvo:default
 ++  on-leave  on-leave:default
 ++  on-agent  on-agent:default
 ++  on-fail   on-fail:default
 --
-
