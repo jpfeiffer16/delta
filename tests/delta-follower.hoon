@@ -31,4 +31,16 @@
     !>(~[[%pass /values-wire %agent [~nec %delta] %leave ~]])
     !>(unsub.cards)
   ==
+++  test-agent-default
+  ;:  weld
+  %-  expect-fail
+    |.((~(on-agent delta-follower bowl) /values-wire *sign:agent:gall))
+  ==
+++  test-agent-kick
+  =^  move1  delta-follower  (~(on-agent delta-follower bowl) /values-wire [%kick ~])
+  ;:  weld
+  %+  expect-eq
+    !>(~[[%pass /values-wire %agent [~zod %delta] %watch /values]])
+    !>(move1)
+  ==
 --
